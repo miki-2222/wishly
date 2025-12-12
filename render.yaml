@@ -3,7 +3,9 @@ services:
   - type: web
     name: goods-planner
     env: docker
-    dockerfilePath: ./Dockerfile
+    buildCommand: ./bin/render-build.sh
+    dockerfilePath: Dockerfile
+    dockerCommand: bundle exec rails server -b 0.0.0.0
     region: singapore
     plan: free
     branch: main
@@ -13,7 +15,7 @@ services:
         sync: false
       - key: DATABASE_URL
         fromDatabase:
-          name: my-rails-app-db
+          name: goods-planner-db
           property: connectionString
       - key: RAILS_ENV
         value: production
@@ -24,7 +26,8 @@ services:
 
 # データベース
 databases:
-  - name: my-rails-app-db
+  - name: goods-planner-db
     plan: free
-    databaseName: my_rails_app_production
-    user: my_rails_app
+    databaseName: goods_planner_production
+    user: goods_planner
+    
