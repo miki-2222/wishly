@@ -1,7 +1,7 @@
 services:
   # Webサービス
   - type: web
-    name: my-rails-app
+    name: goods-planner
     env: docker
     dockerfilePath: ./Dockerfile
     region: singapore
