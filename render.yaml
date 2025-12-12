@@ -1,0 +1,30 @@
+services:
+  # Webサービス
+  - type: web
+    name: my-rails-app
+    env: docker
+    dockerfilePath: ./Dockerfile
+    region: singapore
+    plan: free
+    branch: main
+    healthCheckPath: /up
+    envVars:
+      - key: RAILS_MASTER_KEY
+        sync: false
+      - key: DATABASE_URL
+        fromDatabase:
+          name: my-rails-app-db
+          property: connectionString
+      - key: RAILS_ENV
+        value: production
+      - key: RAILS_LOG_TO_STDOUT
+        value: "true"
+      - key: RAILS_SERVE_STATIC_FILES
+        value: "true"
+
+# データベース
+databases:
+  - name: my-rails-app-db
+    plan: free
+    databaseName: my_rails_app_production
+    user: my_rails_app

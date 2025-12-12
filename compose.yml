@@ -1,4 +1,21 @@
 services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    command: bash -c "bundle install && bin/rails server -b 0.0.0.0"
+    volumes:
+      - .:/app
+      - bundle_cache:/usr/local/bundle
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgresql://postgres:password@db:5432/app_development
+    stdin_open: true
+    tty: true
+
   db:
     image: postgres:15
     environment:
@@ -8,22 +25,7 @@ services:
     ports:
       - "5432:5432"
 
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile.dev  # 開発環境用を指定
-    tty: true
-    stdin_open: true
-    volumes:
-      - .:/app  # コードの変更を即座に反映
-      - bundle_data:/usr/local/bundle:cached
-    ports:
-      - "3000:3000"
-    depends_on:
-      - db
-    environment:
-      DATABASE_HOST: db
-
 volumes:
   postgres_data:
-  bundle_data:
+  bundle_cache:
+  
