@@ -1,5 +1,5 @@
 # Ruby のベースイメージを指定
-FROM ruby:3.2.2
+FROM ruby:3.2.3
 
 # 環境変数の設定
 ENV LANG=C.UTF-8

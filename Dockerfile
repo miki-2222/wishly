@@ -1,5 +1,5 @@
 # --- ビルドステージ ---
-FROM ruby:3.2.2-slim AS build
+FROM ruby:3.2.3-slim AS build
 
 # 作業ディレクトリを設定
 WORKDIR /rails
@@ -41,7 +41,7 @@ RUN if [ -f package.json ]; then \
 RUN SECRET_KEY_BASE_DUMMY=1 bundle exec rails assets:precompile
 
 # --- 実行ステージ ---
-FROM ruby:3.2.2-slim
+FROM ruby:3.2.3-slim
 
 # 作業ディレクトリを設定
 WORKDIR /rails
