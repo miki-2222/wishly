@@ -7,39 +7,42 @@
 # Any libraries that use thread pools should be configured to match
 # the maximum value specified for Puma. Default is set to 5 threads for minimum
 # and maximum; this matches the default thread size of Active Record.
-max_threads_count = ENV.fetch("RAILS_MAX_THREADS") { 5 }
-min_threads_count = ENV.fetch("RAILS_MIN_THREADS") { max_threads_count }
+# スレッド設定（空文字列対策）
+max_threads_env = ENV.fetch("RAILS_MAX_THREADS", "5")
+max_threads_count = max_threads_env.empty? ? 5 : Integer(max_threads_env)
+
+min_threads_env = ENV.fetch("RAILS_MIN_THREADS", max_threads_count.to_s)
+min_threads_count = min_threads_env.empty? ? max_threads_count : Integer(min_threads_env)
+
 threads min_threads_count, max_threads_count
 
+# 環境設定
 rails_env = ENV.fetch("RAILS_ENV") { "development" }
 
+# 本番環境でのワーカー設定
 if rails_env == "production"
-  # If you are running more than 1 thread per process, the workers count
-  # should be equal to the number of processors (CPU cores) in production.
-  #
-  # It defaults to 1 because it's impossible to reliably detect how many
-  # CPU cores are available. Make sure to set the `WEB_CONCURRENCY` environment
-  # variable to match the number of processors.
-  worker_count_env = ENV.fetch("WEB_CONCURRENCY", "1")
-  worker_count = worker_count_env.empty? ? 1 : Integer(worker_count_env)
+  worker_count_env = ENV.fetch("WEB_CONCURRENCY", "0")
+  worker_count = worker_count_env.empty? ? 0 : Integer(worker_count_env)
+
+  # ワーカーが2以上の場合のみクラスターモードを有効化
   if worker_count > 1
     workers worker_count
-  else
     preload_app!
   end
 end
-# Specifies the `worker_timeout` threshold that Puma will use to wait before
-# terminating a worker in development environments.
+
+# 開発環境でのタイムアウト設定
 worker_timeout 3600 if ENV.fetch("RAILS_ENV", "development") == "development"
 
-# Specifies the `port` that Puma will listen on to receive requests; default is 3000.
-port ENV.fetch("PORT") { 3000 }
+# ポート設定（空文字列対策）
+port_env = ENV.fetch("PORT", "3000")
+port port_env.empty? ? 3000 : Integer(port_env)
 
-# Specifies the `environment` that Puma will run in.
+# 環境設定
 environment rails_env
 
-# Specifies the `pidfile` that Puma will use.
+# PIDファイル
 pidfile ENV.fetch("PIDFILE") { "tmp/pids/server.pid" }
 
-# Allow puma to be restarted by `bin/rails restart` command.
+# 再起動プラグイン
 plugin :tmp_restart
