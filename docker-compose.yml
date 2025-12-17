@@ -8,21 +8,31 @@ services:
       - postgres_data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   web:
     build:
       context: .
       dockerfile: Dockerfile
+      target: development
     command: bash -c "rm -f tmp/pids/server.pid && bin/dev"
     volumes:
-      - .:/app
+      - .:/rails
       - bundle_data:/usr/local/bundle
     ports:
       - "3000:3000"
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     stdin_open: true
     tty: true
+    environment:
+      - RAILS_ENV=development
+      - DATABASE_URL=postgresql://postgres:password@db:5432/goods_planner_development
 
 volumes:
   postgres_data:
