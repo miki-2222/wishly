@@ -32,7 +32,7 @@ services:
     tty: true
     environment:
       - RAILS_ENV=development
-      - DATABASE_URL=postgresql://postgres:password@db:5432/goods_planner_development
+      - DATABASE_URL=postgresql://postgres:password@db:5432/wishly_development
 
 volumes:
   postgres_data:
