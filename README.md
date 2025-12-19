@@ -103,4 +103,4 @@ Figma：https://www.figma.com/design/JJKq8gY7FbCYzd3OblQLkt/%E7%84%A1%E9%A1%8C?n
 Figma：https://www.figma.com/design/JJKq8gY7FbCYzd3OblQLkt/%E7%84%A1%E9%A1%8C?node-id=0-1&t=7EYWtVuh13HBwJtO-1
 
 ### ER図
-[![Image from Gyazo](https://i.gyazo.com/9757c16274d322c4f989831db22f1ee9.png)](https://gyazo.com/9757c16274d322c4f989831db22f1ee9)
+[![Image from Gyazo](https://i.gyazo.com/c53aa9f36e8ca60098ad6013ad5b7490.png)](https://gyazo.com/c53aa9f36e8ca60098ad6013ad5b7490)
