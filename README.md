@@ -86,7 +86,7 @@ SNSでの宣伝、Mattermostでの宣伝
 
 ## 技術スタック
 - フレームワーク
-  - Ruby on Rails 7系
+  - Ruby on Rails 7.1.6
 - フロントエンド
   - Tailwind
   - Turbo
@@ -94,7 +94,7 @@ SNSでの宣伝、Mattermostでの宣伝
   - ransack
   - Devise
 - データベース
-  - PostgreSQL
+  - Neon (PostgreSQL 15.15)
 - デプロイ先
   - Render
 - コンテナ
