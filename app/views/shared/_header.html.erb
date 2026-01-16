@@ -1,18 +1,29 @@
-<header class="bg-gray-800 text-white p-4">
-  <div class="container mx-auto flex justify-between items-center">
-    <h1 class="text-2xl font-bold">
-      <%= link_to "Wishly", root_path, class: "hover:text-gray-300" %>
+<header class="header">
+  <div class="header__container">
+    <h1 class="header__title">
+      <%= link_to "Wishly", root_path, class: "header__logo-link" %>
     </h1>
 
     <nav>
       <% if user_signed_in? %>
         <!-- ログイン中の表示 -->
         <div class="flex items-center gap-4">
-          <span>ようこそ、<%= current_user.name %>さん</span>
           <%= link_to "アイテム登録", new_item_path, class: "hover:text-gray-300" %>
           <%= link_to "アイテム一覧", items_path, class: "hover:text-gray-300" %>
-          <%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete }, class: "hover:text-gray-300" %>
-        </div>
+          <ul class="header-menu__lists">
+            <li class="header-menu__list">
+              <button><%= current_user.name %>さん</button>
+              <ul class="dropdown__lists">
+                <li class="dropdown__list">
+                  <%= link_to "プロフィール編集", edit_user_registration_path %>
+                </li>
+                <li class="dropdown__list">
+                  <%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete } %>
+                </li>
+              </ul>
+              </li>
+            </ul>
+          </div>
       <% else %>
         <!-- 非ログイン時の表示 -->
         <div class="flex items-center gap-4">

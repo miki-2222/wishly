@@ -95,7 +95,7 @@ SNSでの宣伝、Mattermostでの宣伝
   - Devise
 - データベース
   - Neon (PostgreSQL 15.15)
-- デプロイ先
+- デプロイ
   - Render
 - コンテナ
   - docker
@@ -105,3 +105,4 @@ Figma：https://www.figma.com/design/KmynmTVG2F7dQI1J1HlxFj/Relim?node-id=0-1&t=
 
 ### ER図
 [![Image from Gyazo](https://i.gyazo.com/c53aa9f36e8ca60098ad6013ad5b7490.png)](https://gyazo.com/c53aa9f36e8ca60098ad6013ad5b7490)
+scm-history-item:%5C%5Cwsl.localhost%5CUbuntu%5Chome%5Cyamashiro%5Cgoods_planner?%7B%22repositoryId%22%3A%22scm0%22%2C%22historyItemId%22%3A%226daa445488a460e97dd8d7ad760899727cf9ea6e%22%2C%22historyItemParentId%22%3A%226a51ea650a41ecd5573658903c3efc29774a24c9%22%2C%22historyItemDisplayId%22%3A%226daa445%22%7D
