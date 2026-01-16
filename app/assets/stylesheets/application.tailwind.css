@@ -6,3 +6,112 @@
     @apply w-full flex justify-center py-2 px-4 rounded-md font-medium transition-opacity duration-150;
   }
 }
+
+/* ヘッダー全体 */
+.header {
+  background-color: #0066cc;  /* 青色の背景 */
+  color: white;
+  padding: 1rem;
+}
+
+/* ヘッダー内のコンテナ */
+.header__container {
+  max-width: 80rem;  /* container相当 */
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* ロゴ部分 */
+.header__title {
+  font-size: 1.5rem;  /* text-2xl相当 */
+  font-weight: 700;  /* font-bold相当 */
+  margin: 0;
+}
+
+/* ロゴのリンク */
+.header__logo-link {
+  color: white;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.header__logo-link:hover {
+  color: #cce6ff;  /* ホバー時に明るい青色に変更 */
+}
+
+/* ナビゲーションリスト全体のスタイルリセット */
+.header-menu__lists {
+    list-style: none;  /* 箇条書きの点を非表示 */
+    margin: 0;
+    padding: 0;
+}
+
+/* ドロップダウンメニューの親要素 */
+.header-menu__list {
+    position: relative;
+}
+
+/* メニュートリガー（「メニュー」テキスト部分） */
+.header-menu__list > button {
+    display: block;
+    color: #fff;
+    text-decoration: none;  /* 下線を非表示 */
+    padding: 0.5rem 1rem;
+    cursor: pointer; /* ホバー時にポインターを表示 */
+}
+
+/* ドロップダウンリスト */
+.dropdown__lists {
+    display: none;
+    width: 200px;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    z-index: 1000;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    background-color: #004d80;
+}
+
+/* ホバー時に表示 */
+.header-menu__list:hover .dropdown__lists {
+    display: block;
+}
+
+/* ドロップダウンの各メニュー項目 */
+.dropdown__list {
+    height: 60px;
+    transition: all .3s;
+    position: relative;
+    /* background-colorは削除(親要素から継承される) */
+}
+
+/* 2番目以降の項目に区切り線を追加 */
+.dropdown__list:not(:first-child)::before {
+    content: "";
+    width: 100%;
+    height: 1px;
+    background-color: #3492d1;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* ホバー時の背景色変更 */
+.dropdown__list:hover {
+    background-color: #003558;
+}
+
+/* メニュー項目内のリンク */
+.dropdown__list a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    text-decoration: none;
+    height: 100%;
+}
