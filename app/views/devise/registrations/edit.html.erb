@@ -64,9 +64,12 @@
       <% end %>
 
       <!-- キャンセルリンク -->
-      <div class="divider">その他</div>
       <div class="text-center space-y-2">
         <%= link_to "戻る", :back, class: "btn btn-ghost btn-sm" %>
+      </div>
+
+      <div class="text-center space-y-2">
+        <%= link_to "パスワード変更", edit_user_password_path, class: "btn btn-ghost btn-sm" %>
       </div>
 
       <!-- アカウント削除セクション(必要に応じて) -->
