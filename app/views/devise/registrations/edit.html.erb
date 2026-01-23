@@ -1,85 +1,105 @@
-<div class="min-h-screen bg-base-200 flex items-center justify-center p-4">
-  <div class="card w-full max-w-md bg-base-100 shadow-xl">
-    <div class="card-body">
-      <h2 class="card-title text-2xl font-bold text-center">プロフィール編集</h2>
-      <p class="text-center text-sm text-gray-600 mb-4">アカウント情報を更新できます</p>
+<div class="account-container">
+  <div class="account-wrapper">
+    <div class="mb-8">
+      <h1 class="page-title">アカウント編集</h1>
+    </div>
 
-      <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-        <%= render "devise/shared/error_messages", resource: resource %>
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: 'account-form' }) do |f| %>
+      <%= render "devise/shared/error_messages", resource: resource %>
 
-        <!-- 名前 -->
-        <div class="form-control">
-          <%= f.label :name, "名前", class: "label" %>
-          <%= f.text_field :name, autofocus: true, autocomplete: "name", class: "input input-bordered w-full" %>
+      <!-- 基本情報セクション -->
+      <div class="info-section">
+        <div class="input-previewer">
+          <div class="fom-head">
+            <p class="form-label">ニックネーム</p>
+          </div>
+          <div class="form-input-wrap">
+            <%= f.text_field :name, autofocus: true, autocomplete: "name", class: "form-input" %>
+          </div>
         </div>
 
-        <!-- メールアドレス -->
-        <div class="form-control">
-          <%= f.label :email, "メールアドレス", class: "label" %>
-          <%= f.email_field :email, autocomplete: "email", class: "input input-bordered w-full" %>
+        <div class="input-previewer">
+          <div class="fom-head">
+            <p class="form-label">メールアドレス</p>
+          </div>
+          <div class="form-input-wrap">
+            <%= f.email_field :email, autocomplete: "email", class: "form-input" %>
+          </div>
         </div>
 
         <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-          <div class="alert alert-warning">
-            <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-            </svg>
-            <span>確認待ち: <%= resource.unconfirmed_email %></span>
+          <div class="confirmation-notice">
+            確認待ち: <%= resource.unconfirmed_email %>
           </div>
         <% end %>
+      </div>
 
-        <!-- パスワード変更セクション -->
-        <div class="divider">パスワード変更(変更しない場合は空欄)</div>
+      <!-- パスワード変更セクション -->
+      <div class="password-section">
+        <p class="section-title">パスワード変更</p>
+        <p class="section-description">変更しない場合は空欄のままにしてください</p>
 
-        <!-- 新しいパスワード -->
-        <div class="form-control">
-          <%= f.label :password, "新しいパスワード", class: "label" %>
-          <%= f.password_field :password, autocomplete: "new-password", class: "input input-bordered w-full" %>
+        <div class="input-previewer">
+          <div class="fom-head">
+            <p class="form-label">新しいパスワード</p>
+          </div>
+          <div class="form-input-wrap">
+            <%= f.password_field :password, autocomplete: "new-password", class: "form-input", placeholder: "変更する場合のみ入力" %>
+          </div>
           <% if @minimum_password_length %>
-            <label class="label">
-              <span class="label-text-alt"><%= @minimum_password_length %>文字以上</span>
-            </label>
+            <p class="field-hint"><%= @minimum_password_length %>文字以上</p>
           <% end %>
         </div>
 
-        <!-- パスワード確認 -->
-        <div class="form-control">
-          <%= f.label :password_confirmation, "新しいパスワード(確認)", class: "label" %>
-          <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "input input-bordered w-full" %>
+        <div class="input-previewer">
+          <div class="fom-head">
+            <p class="form-label">新しいパスワード(確認)</p>
+          </div>
+          <div class="form-input-wrap">
+            <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-input", placeholder: "もう一度入力してください" %>
+          </div>
         </div>
-
-        <!-- 現在のパスワード(必須) -->
-        <div class="form-control">
-          <%= f.label :current_password, "現在のパスワード", class: "label" %>
-          <%= f.password_field :current_password, autocomplete: "current-password", class: "input input-bordered w-full", required: true %>
-          <label class="label">
-            <span class="label-text-alt text-error">※変更には現在のパスワードが必要です</span>
-          </label>
-        </div>
-
-        <!-- 更新ボタン -->
-        <div class="form-control mt-6">
-          <%= f.submit "更新する", class: "btn btn-primary w-full" %>
-        </div>
-      <% end %>
-
-      <!-- キャンセルリンク -->
-      <div class="text-center space-y-2">
-        <%= link_to "戻る", :back, class: "btn btn-ghost btn-sm" %>
       </div>
 
-      <div class="text-center space-y-2">
-        <%= link_to "パスワード変更", edit_user_password_path, class: "btn btn-ghost btn-sm" %>
+      <!-- 本人確認セクション -->
+      <div class="verification-section">
+        <p class="section-title">本人確認</p>
+        <p class="section-description required">変更を保存するには現在のパスワードが必要です</p>
+
+        <div class="input-previewer">
+          <div class="fom-head">
+            <p class="form-label">現在のパスワード</p>
+          </div>
+          <div class="form-input-wrap">
+            <%= f.password_field :current_password, autocomplete: "current-password", class: "form-input", required: true, placeholder: "現在のパスワードを入力" %>
+          </div>
+          <p class="field-hint required-mark">※この項目は必須です</p>
+        </div>
       </div>
 
-      <!-- アカウント削除セクション(必要に応じて) -->
-      <div class="mt-4 p-4 bg-base-200 rounded-lg">
-        <h3 class="font-bold text-sm mb-2">アカウントを削除</h3>
-        <p class="text-xs text-gray-600 mb-2">この操作は取り消せません</p>
-        <%= button_to "アカウント削除", registration_path(resource_name), 
-            data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか?" }, 
-            class: "btn btn-error btn-outline btn-sm w-full" %>
+      <!-- 更新ボタン -->
+      <div class="btn-section">
+        <%= f.submit "更新する", class: "btn-primary" %>
       </div>
-    </div>
+    <% end %>
+
+    <%= link_to "← 一覧に戻る", items_path, class: "back-link-with-icon" %>
+
+    <!-- アカウント削除 -->
+    <div class="withdrawal-section">
+    <h3 class="section-title">アカウントの削除</h3>
+    <p class="section-description">
+      アカウントを削除すると、全てのデータが完全に削除されます。<br>
+      この操作は取り消すことができません。
+    </p>
+    <%= button_to "アカウント削除する",
+                  registration_path(resource_name),
+                  method: :delete,
+                  data: {
+                    turbo_method: :delete,
+                    turbo_confirm: "本当に削除しますか?\n\nこの操作は取り消せません。\n全てのデータが完全に削除されます。" 
+                  },
+                  class: "withdrawal-link" %>
+  </div>
   </div>
 </div>
