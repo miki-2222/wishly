@@ -15,7 +15,7 @@
               <button><%= current_user.name %>さん</button>
               <ul class="dropdown__lists">
                 <li class="dropdown__list">
-                  <%= link_to "プロフィール編集", edit_user_registration_path %>
+                  <%= link_to "アカウント編集", edit_user_registration_path %>
                 </li>
                 <li class="dropdown__list">
                   <%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete } %>
