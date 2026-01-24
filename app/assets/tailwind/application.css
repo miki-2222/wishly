@@ -1,0 +1,359 @@
+@import "tailwindcss";
+
+/* ===========
+  CSS変数定義
+   =========== */
+:root {
+  --color-primary: #6366f1;
+  --color-secondary: #8b5cf6;
+  --color-header-bg: #453785;
+  --color-header-hover: #cce6ff;
+  --color-dropdown-bg: #2e077b;
+  --color-dropdown-hover: #003558;
+  --color-dropdown-border: #3492d1;
+}
+
+/* ====================
+  カスタムユーティリティ
+   ==================== */
+.bg-gradient-primary {
+  background: linear-gradient(to right, var(--color-primary), var(--color-secondary));
+}
+
+/* -------------------
+  ヘッダーコンポーネント
+  ------------------- */
+
+/* ヘッダー全体 */
+.header {
+  color: white;
+  padding: 1rem;
+  background-color: var(--color-header-bg);
+}
+
+/* ヘッダー内のコンテナ */
+.header__container {
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* ロゴ部分 */
+.header__title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+/* ロゴのリンク */
+.header__logo-link {
+  color: rgb(255, 239, 93);
+  text-decoration: none;
+  transition: color 300ms;
+}
+
+.header__logo-link:hover {
+  color: var(--color-header-hover);
+}
+
+/* ナビゲーションリスト全体のスタイルリセット */
+.header-menu__lists {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* ドロップダウンメニューの親要素 */
+.header-menu__list {
+  position: relative;
+}
+
+/* メニュートリガー（「メニュー」テキスト部分） */
+.header-menu__list > button {
+  display: block;
+  color: white;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-size: 1rem;
+}
+
+/* ドロップダウンリスト */
+.dropdown__lists {
+  display: none;
+  width: 200px;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  z-index: 1000;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  background-color: var(--color-dropdown-bg);
+}
+
+/* ホバー時に表示 */
+.header-menu__list:hover .dropdown__lists {
+  display: block;
+}
+
+/* ドロップダウンの各メニュー項目 */
+.dropdown__list {
+  height: 60px;
+  position: relative;
+  transition: background-color 300ms;
+}
+
+/* 2番目以降の項目に区切り線を追加 */
+.dropdown__list:not(:first-child)::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: var(--color-dropdown-border);
+}
+
+/* ホバー時の背景色変更 */
+.dropdown__list:hover {
+  background-color: var(--color-dropdown-hover);
+}
+
+/* メニュー項目内のリンク */
+.dropdown__list a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-decoration: none;
+  height: 100%;
+}
+
+/* ====================
+  ページタイトルコンポーネント(統一版)
+   ==================== */
+.page-title {
+  margin-bottom: 32px;
+  font-size: 24px;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 640px) {
+  .page-title {
+    font-size: 20px;
+  }
+}
+
+/* ====================
+  ボタンコンポーネント
+   ==================== */
+
+/* ボタン共通スタイル */
+.btn {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  border: 1px solid transparent;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: white;
+  cursor: pointer;
+  transition: all 200ms;
+}
+
+.btn:focus {
+  outline: none;
+}
+
+/* 送信ボタンセクション */
+.btn-section {
+  padding-top: 8px;
+}
+
+/* プライマリボタン */
+.btn-primary {
+  width: 100%;
+  padding: 14px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #ffffff;
+  background-color: #3b82f6;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+  background-color: #2563eb;
+}
+
+.btn-primary:active {
+  transform: scale(0.98);
+}
+
+.btn-primary:focus {
+  box-shadow: 0 0 0 2px rgb(255, 255, 255), 0 0 0 4px var(--color-primary);
+}
+
+/* セカンダリボタン */
+.btn-secondary {
+  padding: 0.75rem 1rem;
+  background-color: #2563eb;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.btn-secondary:hover {
+  background-color: #1d4ed8;
+}
+
+.btn-secondary:focus {
+  box-shadow: 0 0 0 2px white, 0 0 0 4px #3b82f6;
+}
+
+/* アイコン付きの戻るリンク */
+.back-link-with-icon {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: #4f46e5;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.back-link-with-icon:hover {
+  color: #3730a3;
+}
+
+/* ----------------------------------------
+  フォームコンポーネント
+   ---------------------------------------- */
+
+/* フォームコンテナ */
+.form-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f9fafb;
+  padding: 3rem 1rem;
+}
+
+@media (min-width: 640px) {
+  .form-container {
+    padding: 3rem 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .form-container {
+    padding: 3rem 2rem;
+  }
+}
+
+/* フォームカード */
+.form-card {
+  max-width: 28rem;
+  width: 100%;
+  background-color: white;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.form-card > * + * {
+  margin-top: 2rem;
+}
+
+/* フォーム入力フィールド */
+.form-input {
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 16px;
+  color: #1a1a1a;
+  background-color: #f9fafb;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+/* フォームヘッダー(ラベルと補助情報の配置用) */
+.form-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+/* フォーム入力ラッパー */
+.form-input-wrap {
+  position: relative;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  background-color: #ffffff;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.form-input::placeholder {
+  color: #9ca3af;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 640px) {
+  .form-input {
+    font-size: 14px;
+  }
+}
+
+/* フォームラベル */
+.form-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 0.25rem;
+}
+
+/* フィールドヒント・必須マーク(統一版) */
+.field-hint {
+  font-size: 12px;
+  color: #6b7280;
+  margin-top: 4px;
+}
+
+.required-mark {
+  color: #dc2626;
+  font-weight: 600;
+}
+
+/* 入力プレビューア(フォームフィールドのまとまり) */
+.input-previewer {
+  margin-bottom: 20px;
+}
+
+.input-previewer:last-child {
+  margin-bottom: 0;
+}
+
+/* 確認通知 */
+.confirmation-notice {
+  padding: 12px 16px;
+  background-color: #fef3c7;
+  border: 1px solid #fbbf24;
+  border-radius: 8px;
+  color: #92400e;
+  font-size: 14px;
+  margin-top: 16px;
+}
