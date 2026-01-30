@@ -1,22 +1,21 @@
-<div class="form-container">
-  <div class="form-card">
-    <!-- ヘッダー -->
-    <div>
-      <h2 class="text-center text-3xl font-bold text-gray-900">
-        パスワード再設定
-      </h2>
-      <p class="mt-2 text-center text-sm text-gray-600">
+<div class="page-container">
+  <div class="page-inner">
+    <!-- タイトル -->
+    <div class="form-header">
+      <h1 class="page-title">
+      再設定用パスワードの送信</h1>
+      <p class="page-explanation">
         登録したメールアドレスを入力してください。<br>
         パスワード再設定用のリンクをお送りします。
       </p>
     </div>
 
     <!-- フォーム -->
-    <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post, class: "mt-8 space-y-6" }) do |f| %>
+    <%= form_with model: resource, as: resource_name, url: password_path(resource_name), html: { method: :post, class: "form-container" } do |f| %>
       <%= render "devise/shared/error_messages", resource: resource %>
 
       <!-- メールアドレスフィールド -->
-      <div>
+      <div class="form-field">
         <%= f.label :email, "メールアドレス", class: "form-label" %>
         <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "example@example.com", class: "form-input" %>
       </div>
@@ -25,11 +24,11 @@
       <div>
         <%= f.submit "パスワード再設定メールを送信", class: "btn-primary" %>
       </div>
-    <% end %>
 
-    <!-- リンク -->
-    <div class="text-center space-y-2 mt-4 pt-4 border-t border-gray-200">
-      <%= render "devise/shared/links" %>
-    </div>
+      <!-- リンク -->
+      <div class="form-links">
+        <%= render "devise/shared/links" %>
+      </div>
+    <% end %>
   </div>
 </div>

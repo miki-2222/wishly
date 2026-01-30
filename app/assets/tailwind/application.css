@@ -1,37 +1,39 @@
 @import "tailwindcss";
 
-/* ===========
-  CSS変数定義
-   =========== */
-:root {
+/* ============================================
+   CSS変数定義
+   ============================================ */
+@theme {
+  /* メインカラー(ボタンやリンク) */
   --color-primary: #6366f1;
   --color-secondary: #8b5cf6;
+  /* ヘッダー専用カラー */
   --color-header-bg: #453785;
   --color-header-hover: #cce6ff;
+  /* ドロップダウンメニュー専用カラー */
   --color-dropdown-bg: #2e077b;
   --color-dropdown-hover: #003558;
   --color-dropdown-border: #3492d1;
+  /* フォーム専用カラー */
+  --color-form-bg: #f9fafb;
+  --color-form-border: #d1d5db;
+  --color-form-focus: #3b82f6;
+  --color-form-text: #1f2937;
+  --color-form-text-secondary: #6b7280;
+  --color-form-error: #ef4444;
 }
 
-/* ====================
-  カスタムユーティリティ
-   ==================== */
-.bg-gradient-primary {
-  background: linear-gradient(to right, var(--color-primary), var(--color-secondary));
-}
-
-/* -------------------
-  ヘッダーコンポーネント
-  ------------------- */
-
-/* ヘッダー全体 */
+/* ============================================
+   ヘッダーコンポーネント
+   ============================================ */
+/* ヘッダー全体の背景とテキスト色 */
 .header {
   color: white;
   padding: 1rem;
   background-color: var(--color-header-bg);
 }
 
-/* ヘッダー内のコンテナ */
+/* ヘッダー内のコンテナ(中央寄せ・最大幅設定) */
 .header__container {
   max-width: 1280px;
   margin-left: auto;
@@ -41,25 +43,20 @@
   align-items: center;
 }
 
-/* ロゴ部分 */
+/* ロゴのタイトル */
 .header__title {
   font-size: 1.5rem;
   font-weight: 700;
   margin: 0;
 }
 
-/* ロゴのリンク */
+/* ロゴのリンク(ホバー時に色変更) */
 .header__logo-link {
   color: rgb(255, 239, 93);
   text-decoration: none;
-  transition: color 300ms;
 }
 
-.header__logo-link:hover {
-  color: var(--color-header-hover);
-}
-
-/* ナビゲーションリスト全体のスタイルリセット */
+/* ナビゲーションリスト全体(リストのデフォルトスタイルをリセット) */
 .header-menu__lists {
   list-style: none;
   margin: 0;
@@ -71,7 +68,7 @@
   position: relative;
 }
 
-/* メニュートリガー（「メニュー」テキスト部分） */
+/* メニュートリガーボタン(「メニュー」テキスト部分) */
 .header-menu__list > button {
   display: block;
   color: white;
@@ -83,7 +80,7 @@
   font-size: 1rem;
 }
 
-/* ドロップダウンリスト */
+/* ドロップダウンリスト(デフォルトは非表示) */
 .dropdown__lists {
   display: none;
   width: 200px;
@@ -95,9 +92,10 @@
   padding: 0;
   list-style: none;
   background-color: var(--color-dropdown-bg);
+  border: 1px solid var(--color-dropdown-border);
 }
 
-/* ホバー時に表示 */
+/* ホバー時にドロップダウンを表示 */
 .header-menu__list:hover .dropdown__lists {
   display: block;
 }
@@ -135,54 +133,39 @@
   height: 100%;
 }
 
-/* ====================
-  ページタイトルコンポーネント(統一版)
-   ==================== */
+/* ============================================
+   ページタイトルコンポーネント
+   ============================================ */
+/* ページのメインタイトル */
 .page-title {
-  margin-bottom: 32px;
-  font-size: 24px;
+  margin-bottom: 30px;
+  font-size: 30px;
   font-weight: 700;
   color: #1a1a1a;
 }
 
-/* レスポンシブ対応 */
+/* タイトル下の説明文 */
+.page-explanation {
+  font-size: 16px;
+  color: #6b7280;
+  margin-top: 5px;
+}
+
+/* レスポンシブ対応(スマホサイズではタイトルを小さく) */
 @media (max-width: 640px) {
   .page-title {
     font-size: 20px;
   }
 }
 
-/* ====================
-  ボタンコンポーネント
-   ==================== */
+/* ============================================
+   ボタンコンポーネント
+   ============================================ */
 
-/* ボタン共通スタイル */
-.btn {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  border: 1px solid transparent;
-  border-radius: 0.375rem;
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: white;
-  cursor: pointer;
-  transition: all 200ms;
-}
-
-.btn:focus {
-  outline: none;
-}
-
-/* 送信ボタンセクション */
-.btn-section {
-  padding-top: 8px;
-}
-
-/* プライマリボタン */
+/* プライマリボタン(メインアクション用) */
 .btn-primary {
   width: 100%;
-  padding: 14px 24px;
+  padding: 12px 24px;
   font-size: 16px;
   font-weight: 600;
   color: #ffffff;
@@ -191,6 +174,7 @@
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.2s ease;
+  margin-top: 24px;
 }
 
 .btn-primary:hover {
@@ -202,55 +186,254 @@
 }
 
 .btn-primary:focus {
+  outline: none;
   box-shadow: 0 0 0 2px rgb(255, 255, 255), 0 0 0 4px var(--color-primary);
 }
 
-/* セカンダリボタン */
-.btn-secondary {
-  padding: 0.75rem 1rem;
-  background-color: #2563eb;
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+/* 削除ボタン */
+.btn-danger {
+  display: inline-block;
+  padding: 12px 24px;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-align: center;
+  text-decoration: none;
+  width: 100%;
+  margin-top: 8px;
 }
 
-.btn-secondary:hover {
-  background-color: #1d4ed8;
+.btn-danger:hover {
+  background-color: #c82333;
 }
 
-.btn-secondary:focus {
-  box-shadow: 0 0 0 2px white, 0 0 0 4px #3b82f6;
+.btn-danger:active {
+  background-color: #bd2130;
+  transform: translateY(1px);
 }
 
-/* アイコン付きの戻るリンク */
-.back-link-with-icon {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
+.btn-danger:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.25);
+}
+
+/* アカウント削除セクション用の追加スタイル */
+.form-field .btn-danger {
+  margin-top: 16px;
+}
+
+/* ============================================
+   リンク関連スタイル
+   ============================================ */
+
+/* 1. フォーム下部のリンクエリア（ログイン・新規登録など） */
+.form-links {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.form-links a {
+  display: block;
+  margin-bottom: 0.5rem;
   color: #4f46e5;
   text-decoration: none;
   transition: color 0.2s;
 }
 
-.back-link-with-icon:hover {
+.form-links a:hover {
   color: #3730a3;
 }
 
-/* ----------------------------------------
-  フォームコンポーネント
-   ---------------------------------------- */
+/* 2. アカウント情報編集ページ用のリンクリスト */
+.link-section {
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.link-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.link-section li {
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.link-section li:last-child {
+  border-bottom: none;
+}
+
+.link-section a {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 0;
+  color: var(--color-form-text);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.link-section a:hover {
+  color: var(--color-form-focus);
+}
+
+.link-section a::after {
+  content: '›';
+  font-size: 24px;
+  color: #9ca3af;
+}
+
+/* ============================================
+   ページ全体のコンテナ
+   ============================================ */
+
+/* 外側のコンテナ */
+.page-container {
+  max-width: 42rem; /* max-w-2xl = 672px */
+  margin: 0 auto;
+  padding: 2rem 1rem; /* py-8 px-4 */
+}
+
+/* 内側のコンテナ */
+.page-inner {
+  max-width: 42rem; /* max-w-2xl = 672px */
+  margin: 0 auto;
+  padding: 0 1rem; /* px-4 */
+}
+
+/* ============================================
+   フォームページ用スタイル
+   ============================================ */
 
 /* フォームコンテナ */
 .form-container {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #f9fafb;
-  padding: 3rem 1rem;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 2rem;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-@media (min-width: 640px) {
+/* タイトルセクション */
+.form-header {
+  margin-bottom: 2rem;
+}
+
+/* フォームフィールド */
+.form-field {
+  margin-bottom: 1.5rem;
+}
+
+/* ラベル */
+.form-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 0.5rem;
+}
+
+/* ヒント(パスワードの文字数など) */
+.field-hint {
+  font-size: 0.75rem;
+  color: #6b7280;
+  margin-left: 0.25rem;
+}
+
+/* 入力フィールド */
+.form-input {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.375rem;
+  transition: all 0.2s ease;
+  color: #1f2937;
+  background-color: #ffffff;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+}
+
+.form-input::placeholder {
+  color: #9ca3af;
+}
+
+/* セクション間の仕切り線 */
+.form-divider {
+  height: 1px;
+  background-color: #e0e0e0;
+  margin: 32px 0;
+}
+
+/* Remember me チェックボックス */
+.form-checkbox {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.form-checkbox input[type="checkbox"] {
+  height: 1rem;
+  width: 1rem;
+  color: var(--color-form-focus);
+  border: 1px solid var(--color-form-border);
+  border-radius: 0.25rem;
+  margin-right: 0.5rem;
+}
+
+.form-checkbox input[type="checkbox"]:focus {
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+}
+
+.form-checkbox label {
+  font-size: 0.875rem;
+  color: #374151;
+  margin: 0;
+}
+
+/* 退会セクション */
+.form-container .withdrawal-section {
+  margin-top: 32px;
+  padding: 24px;
+  border: 2px solid #fecaca;
+  border-radius: 8px;
+  background-color: #fef2f2;
+}
+
+.form-container .withdrawal-section a {
+  color: var(--color-form-error);
+  text-decoration: underline;
+  font-size: 14px;
+  transition: color 0.2s ease;
+}
+
+.form-container .withdrawal-section a:hover {
+  color: #991b1b;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 640px) {
   .form-container {
-    padding: 3rem 1.5rem;
+    padding: 1rem 0.5rem;
+  }
+
+  .page-inner {
+    padding: 0 0.5rem;
+  }
+
+  .form-input {
+    font-size: 14px;
   }
 }
 
@@ -258,102 +441,4 @@
   .form-container {
     padding: 3rem 2rem;
   }
-}
-
-/* フォームカード */
-.form-card {
-  max-width: 28rem;
-  width: 100%;
-  background-color: white;
-  padding: 2rem;
-  border-radius: 0.5rem;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-}
-
-.form-card > * + * {
-  margin-top: 2rem;
-}
-
-/* フォーム入力フィールド */
-.form-input {
-  width: 100%;
-  padding: 12px 16px;
-  font-size: 16px;
-  color: #1a1a1a;
-  background-color: #f9fafb;
-  border: 1px solid #d1d5db;
-  border-radius: 8px;
-  transition: all 0.2s ease;
-}
-
-/* フォームヘッダー(ラベルと補助情報の配置用) */
-.form-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 8px;
-}
-
-/* フォーム入力ラッパー */
-.form-input-wrap {
-  position: relative;
-}
-
-.form-input:focus {
-  outline: none;
-  border-color: #3b82f6;
-  background-color: #ffffff;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-}
-
-.form-input::placeholder {
-  color: #9ca3af;
-}
-
-/* レスポンシブ対応 */
-@media (max-width: 640px) {
-  .form-input {
-    font-size: 14px;
-  }
-}
-
-/* フォームラベル */
-.form-label {
-  display: block;
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: #374151;
-  margin-bottom: 0.25rem;
-}
-
-/* フィールドヒント・必須マーク(統一版) */
-.field-hint {
-  font-size: 12px;
-  color: #6b7280;
-  margin-top: 4px;
-}
-
-.required-mark {
-  color: #dc2626;
-  font-weight: 600;
-}
-
-/* 入力プレビューア(フォームフィールドのまとまり) */
-.input-previewer {
-  margin-bottom: 20px;
-}
-
-.input-previewer:last-child {
-  margin-bottom: 0;
-}
-
-/* 確認通知 */
-.confirmation-notice {
-  padding: 12px 16px;
-  background-color: #fef3c7;
-  border: 1px solid #fbbf24;
-  border-radius: 8px;
-  color: #92400e;
-  font-size: 14px;
-  margin-top: 16px;
 }
