@@ -1,80 +1,70 @@
-<div class="account-container">
-  <div class="account-wrapper">
-    <div class="mb-8">
-      <h1 class="page-title">アカウント編集</h1>
+<div class="page-container">
+  <div class="page-inner">
+    <!-- タイトル -->
+    <div class="form-header">
+      <h1 class="page-title">プロフィール編集</h1>
     </div>
 
-    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: 'account-form' }) do |f| %>
+    <!-- フォーム -->
+    <%= form_with model: resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: 'form-container' } do |f| %>
       <%= render "devise/shared/error_messages", resource: resource %>
 
-      <!-- 基本情報セクション -->
-      <div class="info-section">
-        <div class="input-previewer">
-          <div class="fom-head">
-            <p class="form-label">ニックネーム</p>
-          </div>
-          <div class="form-input-wrap">
-            <%= f.text_field :name, autofocus: true, autocomplete: "name", class: "form-input" %>
-          </div>
-        </div>
+      <!-- ニックネームフィールド -->
+      <div class="form-field">
+        <%= f.label :name, "ニックネーム", class: "form-label" %>
+        <%= f.text_field :name, autofocus: true, autocomplete: "name", class: "form-input" %>
+      </div>
 
-        <div class="input-previewer">
-          <div class="fom-head">
-            <p class="form-label">メールアドレス</p>
-          </div>
-          <div class="form-input-wrap">
-            <%= f.email_field :email, autocomplete: "email", class: "form-input" %>
-          </div>
-        </div>
+      <!-- メールアドレスフィールド -->
+      <div class="form-field">
+        <%= f.label :email, "メールアドレス", class: "form-label" %>
+        <%= f.email_field :email, autocomplete: "email", class: "form-input" %>
+      </div>
 
-        <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+      <!-- 確認待ちメッセージ -->
+      <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+        <div class="form-field">
           <div class="confirmation-notice">
             確認待ち: <%= resource.unconfirmed_email %>
           </div>
+        </div>
+      <% end %>
+
+      <!-- パスワード変更セクション -->
+      <div class="form-divider"></div>
+
+      <div class="form-field">
+        <p class="form-label">パスワード変更</p>
+        <p class="field-hint">変更しない場合は空欄のままにしてください</p>
+      </div>
+
+      <div class="form-field">
+        <%= f.label :password, "新しいパスワード", class: "form-label" %>
+        <%= f.password_field :password, autocomplete: "new-password", placeholder: "変更する場合のみ入力", class: "form-input" %>
+        <% if @minimum_password_length %>
+          <p class="field-hint"><%= @minimum_password_length %>文字以上</p>
         <% end %>
       </div>
 
-      <!-- パスワード変更セクション -->
-      <div class="password-section">
-        <p class="section-title">パスワード変更</p>
-        <p class="section-description">変更しない場合は空欄のままにしてください</p>
-
-        <div class="input-previewer">
-          <div class="fom-head">
-            <p class="form-label">新しいパスワード</p>
-          </div>
-          <div class="form-input-wrap">
-            <%= f.password_field :password, autocomplete: "new-password", class: "form-input", placeholder: "変更する場合のみ入力" %>
-          </div>
-          <% if @minimum_password_length %>
-            <p class="field-hint"><%= @minimum_password_length %>文字以上</p>
-          <% end %>
-        </div>
-
-        <div class="input-previewer">
-          <div class="fom-head">
-            <p class="form-label">新しいパスワード(確認)</p>
-          </div>
-          <div class="form-input-wrap">
-            <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-input", placeholder: "もう一度入力してください" %>
-          </div>
-        </div>
+      <div class="form-field">
+        <%= f.label :password_confirmation, "新しいパスワード(確認)", class: "form-label" %>
+        <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: "もう一度入力してください", class: "form-input" %>
       </div>
 
-      <!-- 本人確認セクション -->
-      <div class="verification-section">
-        <p class="section-title">本人確認</p>
-        <p class="section-description required">変更を保存するには現在のパスワードが必要です</p>
+      <div class="form-divider"></div>
 
-        <div class="input-previewer">
-          <div class="fom-head">
-            <p class="form-label">現在のパスワード</p>
-          </div>
-          <div class="form-input-wrap">
-            <%= f.password_field :current_password, autocomplete: "current-password", class: "form-input", required: true, placeholder: "現在のパスワードを入力" %>
-          </div>
-          <p class="field-hint required-mark">※この項目は必須です</p>
-        </div>
+      <!-- 本人確認セクション -->
+      <div class="form-field">
+        <p class="form-label">本人確認</p>
+        <p class="field-hint">変更を保存するには現在のパスワードが必要です</p>
+      </div>
+
+      <div class="form-field">
+        <%= f.label :current_password, class: "form-label" do %>
+          現在のパスワード <span class="required-mark">*</span>
+        <% end %>
+        <%= f.password_field :current_password, autocomplete: "current-password", required: true, placeholder: "現在のパスワードを入力", class: "form-input" %>
+        <p class="field-hint required-mark">※この項目は必須です</p>
       </div>
 
       <!-- 更新ボタン -->
@@ -83,23 +73,28 @@
       </div>
     <% end %>
 
-    <%= link_to "← 一覧に戻る", items_path, class: "back-link-with-icon" %>
+    <!-- 戻るリンク -->
+    <div class="form-links">
+      <%= link_to "← 一覧に戻る", items_path, class: "link-text" %>
+    </div>
 
     <!-- アカウント削除 -->
-    <div class="withdrawal-section">
-    <h3 class="section-title">アカウントの削除</h3>
-    <p class="section-description">
-      アカウントを削除すると、全てのデータが完全に削除されます。<br>
-      この操作は取り消すことができません。
-    </p>
-    <%= button_to "アカウント削除する",
-                  registration_path(resource_name),
-                  method: :delete,
-                  data: {
-                    turbo_method: :delete,
-                    turbo_confirm: "本当に削除しますか?\n\nこの操作は取り消せません。\n全てのデータが完全に削除されます。" 
-                  },
-                  class: "withdrawal-link" %>
-  </div>
+    <div class="form-divider"></div>
+
+    <div class="form-field">
+      <p class="form-label">アカウントの削除</p>
+      <p class="field-hint">
+        アカウントを削除すると、全てのデータが完全に削除されます。<br>
+        この操作は取り消すことができません。
+      </p>
+      <%= button_to "アカウントを削除する",
+                    registration_path(resource_name),
+                    method: :delete,
+                    data: {
+                      turbo_method: :delete,
+                      turbo_confirm: "本当に削除しますか?\n\nこの操作は取り消せません。\n全てのデータが完全に削除されます。" 
+                    },
+                    class: "btn-danger" %>
+    </div>
   </div>
 </div>

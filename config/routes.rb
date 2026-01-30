@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: {
-    registrations: 'users/registrations'
+    registrations: 'users/registrations',
+    passwords: 'users/passwords'
   }
 
   # ルートパスをitems一覧に設定
@@ -9,6 +10,10 @@ Rails.application.routes.draw do
   # アイテムのCRUD操作
   resources :items do
     resources :items
+  end
+
+  if Rails.env.development?
+    mount LetterOpenerWeb::Engine, at: "/letter_opener"
   end
 
   # ヘルスチェック用
