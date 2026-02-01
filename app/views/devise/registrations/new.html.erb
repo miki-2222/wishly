@@ -1,13 +1,26 @@
 <div class="page-container">
   <div class="page-inner">
+    <% if flash[:alert] %>
+      <div class="custom-alert">
+        <span class="close" onclick="this.parentElement.style.display='none';">&times;</span>
+        <%= flash[:alert] %>
+      </div>
+    <% end %>
+
     <!-- タイトル -->
     <div class="form-header">
       <h1 class="page-title">新規登録</h1>
       <p class="page-explanation">アカウントを作成してください</p>
     </div>
 
+      <%= button_to "Googleで登録",
+              user_google_oauth2_omniauth_authorize_path,
+              method: :post,
+              data: { turbo: false },
+              class: "btn btn-primary" %>
+
     <!-- フォーム -->
-    <%= form_with model: resource, as: resource_name, url: registration_path(resource_name), html: { class: "form-container" }, local: true do |f| %>
+    <%= form_with model: resource, as: resource_name, url: registration_path(resource_name), html: { class: "form-container" } do |f| %>
       <%= render "devise/shared/error_messages", resource: resource %>
 
       <!-- ニックネームフィールド -->

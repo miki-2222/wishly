@@ -1,6 +1,17 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   before_action :authenticate_user!
 
+  def build_resource(hash = {})
+    hash[:uid] = User.create_unique_string
+    super
+  end
+
+  def update_resource(resource, params)
+    return super if params['password'].present?
+
+    resource.update_without_password(params.except('current_password'))
+  end
+
   # 退会処理
   def destroy
     # 関連データの削除処理
