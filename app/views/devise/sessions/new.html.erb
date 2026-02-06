@@ -3,42 +3,53 @@
     <!-- タイトル -->
     <div class="form-header">
       <h1 class="page-title">ログイン</h1>
-    <p>アカウントにログインしてください</p>
+      <p class="page-explanation">アカウントにログインしてください</p>
+    </div>
+
+    <div class= "form-container">
+      <!-- OAuth ボタン -->
+      <div class="oauth-button-container">
+        <%= render 'devise/shared/google_login_button', button_text: 'Googleでログイン' %>
+        <!-- 他の OAuth ボタンを追加する場合はここに -->
+      </div>
+
+      <!-- 区切り線 -->
+      <div class="divider"></div>
+
+      <!-- フォーム -->
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+        <%= render "devise/shared/error_messages", resource: resource %>
+
+        <!-- メールアドレスフィールド -->
+        <div class="form-field">
+          <%= f.label :email, "メールアドレス", class: "form-label" %>
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-input" %>
+        </div>
+
+        <!-- パスワードフィールド -->
+        <div class="form-field">
+          <%= f.label :password, "パスワード", class: "form-label" %>
+          <%= f.password_field :password, autocomplete: "current-password", class: "form-input" %>
+        </div>
+
+        <!-- Remember me チェックボックス -->
+        <% if devise_mapping.rememberable? %>
+          <div class="form-checkbox">
+            <%= f.check_box :remember_me %>
+            <%= f.label :remember_me, "ログイン状態を保持する" %>
+          </div>
+        <% end %>
+
+        <!-- 送信ボタン -->
+        <div class="form-submit">
+          <%= f.submit "ログイン", class: "btn-primary" %>
+        </div>
+
+        <!-- リンク -->
+        <div class="form-links">
+          <%= render "devise/shared/links" %>
+        </div>
+      <% end %>
     </div>
   </div>
-
-  <!-- フォーム -->
-  <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "form-container" }) do |f| %>
-    <%= render "devise/shared/error_messages", resource: resource %>
-
-    <!-- メールアドレスフィールド -->
-    <div class="form-field">
-      <%= f.label :email, "メールアドレス", class: "form-label" %>
-      <%= f.email_field :email, autofocus: true, autocomplete: "email" , class: "form-input" %>
-    </div>
-
-    <!-- パスワードフィールド -->
-    <div class="form-field">
-      <%= f.label :password, "パスワード", class: "form-label" %>
-      <%= f.password_field :password, autocomplete: "current-password", class: "form-input" %>
-    </div>
-
-    <!-- Remember me チェックボックス -->
-    <% if devise_mapping.rememberable? %>
-      <div class="form-checkbox">
-        <%= f.check_box :remember_me %>
-        <%= f.label :remember_me, "ログイン状態を保持する" %>
-      </div>
-    <% end %>
-
-    <!-- 送信ボタン -->
-    <div class="form-submit">
-      <%= f.submit "ログイン", class: "btn-primary" %>
-    </div>
-
-    <!-- リンク -->
-    <div class="form-links">
-      <%= render "devise/shared/links" %>
-    </div>
-  <% end %>
 </div>
