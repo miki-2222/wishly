@@ -1,19 +1,12 @@
 <div class="page-container">
   <div class="page-inner">
-    <% if flash[:alert] %>
-      <div class="custom-alert">
-        <span class="close" onclick="this.parentElement.style.display='none';">&times;</span>
-        <%= flash[:alert] %>
-      </div>
-    <% end %>
-
     <!-- タイトル -->
     <div class="form-header">
       <h1 class="page-title">ログイン</h1>
       <p class="page-explanation">アカウントにログインしてください</p>
     </div>
 
-    <div class="form-container">
+    <div class= "form-container">
       <!-- OAuth ボタン -->
       <div class="oauth-button-container">
         <%= render 'devise/shared/google_login_button', button_text: 'Googleでログイン' %>
