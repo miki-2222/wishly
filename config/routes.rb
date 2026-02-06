@@ -9,9 +9,7 @@ Rails.application.routes.draw do
   root "items#index"
 
   # アイテムのCRUD操作
-  resources :items do
-    resources :items
-  end
+  resources :items
 
   if Rails.env.development?
     mount LetterOpenerWeb::Engine, at: "/letter_opener"

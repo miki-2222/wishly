@@ -316,8 +316,8 @@
 .form-container {
   max-width: 100%;
   margin: 0 auto;
-  padding: 2rem;
-  background-color: #ffffff;
+  padding: 1rem;
+  background-color: rgb(255, 255, 255);
   border-radius: 12px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
@@ -369,11 +369,25 @@
   color: #9ca3af;
 }
 
-/* セクション間の仕切り線 */
-.form-divider {
-  height: 1px;
-  background-color: #e0e0e0;
-  margin: 32px 0;
+/* 区切り線（「または」のテキスト付き） */
+.divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 24px 0;
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid #dadce0;
+}
+
+.divider span {
+  padding: 0 16px;
+  color: #666;
+  font-size: 14px;
 }
 
 /* Remember me チェックボックス */

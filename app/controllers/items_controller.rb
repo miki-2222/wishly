@@ -1,7 +1,7 @@
 class ItemsController < ApplicationController
-  before_action :authenticate_user!, unless: :devise_controller? # ログイン必須な時
+  before_action :authenticate_user! # ログイン必須な時
   before_action :set_item, only: [:show, :edit, :update, :destroy]
-  
+
   def index
     @items = current_user.items
     @filter = params[:filter]

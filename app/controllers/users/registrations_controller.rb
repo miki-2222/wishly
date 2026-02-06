@@ -1,21 +1,17 @@
 class Users::RegistrationsController < Devise::RegistrationsController
-  before_action :authenticate_user!
-
-  def build_resource(hash = {})
-    hash[:uid] = User.create_unique_string
-    super
-  end
 
   def update_resource(resource, params)
-    return super if params['password'].present?
-
-    resource.update_without_password(params.except('current_password'))
+    if params['password'].present?
+      # パスワードを更新する場合は通常の更新処理
+      super
+    else
+      # パスワードを更新しない場合は、パスワードなしで更新
+      resource.update_without_password(params.except('current_password'))
+    end
   end
 
   # 退会処理
   def destroy
-    # 関連データの削除処理
-    resource.items.destroy_all if resource.items.any?
 
     # ユーザー自体を物理削除
     resource.destroy
